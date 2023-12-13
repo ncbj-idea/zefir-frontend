@@ -1,0 +1,17 @@
+'use client';
+
+import { createSvgIcon } from '@mui/material/utils';
+import * as React from 'react';
+
+export const Flag = createSvgIcon(
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21.989" viewBox="0 0 22 21.989">
+    <path
+      id="icon_flag"
+      d="M19.4,4.1l-15-6A.986.986,0,0,0,3-1V18H-1a.945.945,0,0,0-1,1,.945.945,0,0,0,1,1H9a1,1,0,0,0,0-2H5V11.7L19.4,6A1.052,1.052,0,0,0,19.4,4.1ZM5,9.5V.5L16.3,5Z"
+      transform="translate(2 1.989)"
+      fill="currentColor"
+    />
+  </svg>,
+  'FlagIcon',
+);
+export default Flag;

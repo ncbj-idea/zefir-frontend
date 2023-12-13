@@ -1,0 +1,46 @@
+image: docker.nexus.services.idea.edu.pl/chronos/node_alpine:18
+
+stages:
+  - check
+  - test
+  - release
+
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - .npm/
+    - .next/cache/
+
+variables:
+  HUSKY: 0
+  NEXT_PUBLIC_MAPBOX_API_KEY: $NEXT_PUBLIC_MAPBOX_API_KEY
+  NEXT_PUBLIC_API_URL: $NEXT_PUBLIC_API_URL
+
+.run_npm_ci:
+  before_script:
+    - npm ci --cache .npm --prefer-offline --ignore-scripts
+
+check:
+  stage: check
+  extends: .run_npm_ci
+  script:
+    - npm run check
+
+test:
+  stage: test
+  extends: .run_npm_ci
+  script:
+    - npm run test
+
+release:
+  stage: release
+  extends: .run_npm_ci
+  script:
+    - |
+      echo "Job Token: ${CI_JOB_TOKEN}"
+      echo "Gitlab: ${GITLAB_TOKEN}"
+    - npx semantic-release
+  only:
+    - master
